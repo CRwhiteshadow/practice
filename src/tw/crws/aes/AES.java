@@ -1,5 +1,6 @@
 package tw.crws.aes;
 
+import java.io.UnsupportedEncodingException;
 import java.security.InvalidAlgorithmParameterException;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
@@ -43,10 +44,10 @@ public class AES {
 
 	public static String encrypt(String algorithm,String input,SecretKey key,IvParameterSpec iv) 
 			throws NoSuchAlgorithmException, NoSuchPaddingException, InvalidKeyException,
-			InvalidAlgorithmParameterException, IllegalBlockSizeException, BadPaddingException {
+			InvalidAlgorithmParameterException, IllegalBlockSizeException, BadPaddingException, UnsupportedEncodingException {
 		Cipher cipher = Cipher.getInstance(algorithm);
 		cipher.init(Cipher.ENCRYPT_MODE, key, iv);
-		byte[] cipherText = cipher.doFinal(input.getBytes());
+		byte[] cipherText = cipher.doFinal(input.getBytes("UTF-8"));
 		return Base64.getEncoder().encodeToString(cipherText);
 	}
 	
